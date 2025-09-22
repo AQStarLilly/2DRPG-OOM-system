@@ -286,7 +286,13 @@ public class Player : Actor
         // The player pick the item, remove the item from map and place it in its inventory
         playerInventory.inventory.Add(_item); 
         Game1.itemsOnMap.Remove(_item);
-        _item.isPickUp = true; 
+        _item.isPickUp = true;
+
+        if (!Game1.firstItemPicked)
+        {
+            Game1.firstItemPicked = true;
+            Game1.Quests.Find(q => q.Type == Quest.QuestType.PickFirstItem).Cleared = true;
+        }
     }        
 
     private void consumeItem(int iIndex) 

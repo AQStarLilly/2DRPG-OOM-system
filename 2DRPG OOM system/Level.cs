@@ -65,8 +65,18 @@ public class Level : Scene
                 if(!(Game1.characters[i] is Player) && Game1.characters[0] is Player)
                 {
                     ((Player)Game1.characters[0]).AddCoins(2);
-                    System.Diagnostics.Debug.WriteLine(
-                "Coins awarded! Total now: " + ((Player)Game1.characters[0]).coins);
+                    Game1.enemiesDefeated++;
+
+                    if(Game1.enemiesDefeated >= 5)
+                    {
+                        Game1.Quests.Find(q => q.Type == Quest.QuestType.Beat5Enemies).Cleared = true;
+                    }
+
+                    if (Game1.characters[i] is Boss)
+                    {
+                        Game1.bossDefeated = true;
+                        Game1.Quests.Find(q => q.Type == Quest.QuestType.BeatBoss).Cleared = true;
+                    }
                 }
                 Game1.characters.RemoveAt(i);
             }
@@ -164,10 +174,26 @@ public class Level : Scene
                 _spriteBatch.Draw(Game1.mapTexture, new Rectangle(Game1.characters[i].tilemap_PosX * Game1.tileSize * 2, (Game1.characters[i].tilemap_PosY + 5) * Game1.tileSize * 2, Game1.tileSize * 2, Game1.tileSize * 2), new Rectangle(Game1.characters[i].cropPositionX * Game1.tileSize, Game1.characters[i].cropPositionY * Game1.tileSize, Game1.tileSize, Game1.tileSize), Game1.characters[i].AColor);
         }
 
-        _spriteBatch.DrawString(Game1.mySpriteFont, Game1.whosTurn, new Vector2(300f, 60f), Color.White);
+        _spriteBatch.DrawString(Game1.mySpriteFont, Game1.whosTurn, new Vector2(300f, 85f), Color.White);
 
-        
-        
+        //Quest HUD
+        int qY = 0;
+        _spriteBatch.DrawString(Game1.mySpriteFont, "Quests:", new Vector2(280, qY), Color.Yellow);
+        qY += 20;
+
+        foreach (var quest in Game1.Quests)  // <-- this declares quest
+        {
+            _spriteBatch.DrawString(
+                Game1.mySpriteFont,
+                $"{quest.Name}: {quest.Status}",
+                new Vector2(280, qY),
+                quest.Cleared ? Color.LightGreen : Color.White);
+            qY += 20;
+        }
+
+
+
+
 
         // Draw the projectiles if exits. Only player, dark mages and the boss can create projectiles, so it check only those three actors
         for (int i = 0; i < Game1.characters.Count; i++)

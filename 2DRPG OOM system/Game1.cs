@@ -13,7 +13,14 @@ namespace _2DRPG_OOM_system
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;        
         public static Texture2D mapTexture;         
-        public static List<Actor> characters = new List<Actor>(); 
+        public static List<Actor> characters = new List<Actor>();
+
+        public static List<Quest> Quests = new List<Quest>();
+
+        //track progress
+        public static int enemiesDefeated = 0;
+        public static bool firstItemPicked = false;
+        public static bool bossDefeated = false;
 
         
         // This determine the size the tiles are going to have        
@@ -98,6 +105,12 @@ namespace _2DRPG_OOM_system
             GameScenes.Add(new Level(4));
             GameScenes.Add(EndScreen);
             GameScenes.Add(GameOver);
+
+            //Adds the 3 quests to the game, more can be added
+            Quests.Clear();
+            Quests.Add(new Quest(Quest.QuestType.Beat5Enemies, "Beat 5 enemies", "Defeat 5 enemies total"));
+            Quests.Add(new Quest(Quest.QuestType.PickFirstItem, "Pick up First Item", "Pick up your First Item"));
+            Quests.Add(new Quest(Quest.QuestType.BeatBoss, "Beat the Boss", "Defeat the Final Boss"));
 
             // Once all the scenes are created and stored in the list of scene, we have how many scenes the game has
             maxNumLevel = GameScenes.Count; 
