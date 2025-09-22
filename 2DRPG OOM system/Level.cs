@@ -181,7 +181,7 @@ public class Level : Scene
         _spriteBatch.DrawString(Game1.mySpriteFont, "Quests:", new Vector2(280, qY), Color.Yellow);
         qY += 20;
 
-        foreach (var quest in Game1.Quests)  // <-- this declares quest
+        foreach (var quest in Game1.Quests)  //sets up quests
         {
             _spriteBatch.DrawString(
                 Game1.mySpriteFont,
@@ -190,9 +190,6 @@ public class Level : Scene
                 quest.Cleared ? Color.LightGreen : Color.White);
             qY += 20;
         }
-
-
-
 
 
         // Draw the projectiles if exits. Only player, dark mages and the boss can create projectiles, so it check only those three actors

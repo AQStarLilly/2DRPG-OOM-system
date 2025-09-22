@@ -16,5 +16,6 @@ public class Quest
 		Cleared = false;
 	}
 
+	//status for Quests
 	public string Status => Cleared ? "Cleared" : "In-Progress";
 }
