@@ -57,6 +57,7 @@ public class Level : Scene
             }
         }
 
+        //Adds coins to player whenever an enemy dies
         for(int i = Game1.characters.Count -1; i >= 0; i--)
         {
             if (Game1.characters[i]._healthSystem.health <= 0)
