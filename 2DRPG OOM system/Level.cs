@@ -55,10 +55,20 @@ public class Level : Scene
                     ((Boss)Game1.characters[i]).VenomBreath.ProjectileUpdate(gameTime); 
                 }
             }
+        }
 
-            if (Game1.characters[i]._healthSystem.life <= 0)
-                Game1.characters.Remove(Game1.characters[i]);           
-
+        for(int i = Game1.characters.Count -1; i >= 0; i--)
+        {
+            if (Game1.characters[i]._healthSystem.health <= 0)
+            {
+                if(!(Game1.characters[i] is Player) && Game1.characters[0] is Player)
+                {
+                    ((Player)Game1.characters[0]).AddCoins(2);
+                    System.Diagnostics.Debug.WriteLine(
+                "Coins awarded! Total now: " + ((Player)Game1.characters[0]).coins);
+                }
+                Game1.characters.RemoveAt(i);
+            }
         }
 
         // Check if the projectiles have collided

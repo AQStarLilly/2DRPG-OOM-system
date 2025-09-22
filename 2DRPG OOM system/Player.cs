@@ -1,4 +1,5 @@
 ﻿using _2DRPG_OOM_system;
+using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -34,6 +35,11 @@ public class Player : Actor
         shot = false;
         coins = 0;
         resetInventory();         
+    }
+
+    public void AddCoins(int amount)
+    {
+        coins = Math.Max(0, coins + amount);
     }
 
     private KeyboardState oldState;     
@@ -254,7 +260,7 @@ public class Player : Actor
         _spriteBatch.DrawString(Game1.mySpriteFont, "HP: " + _healthSystem.health, new Vector2(125, posY), Color.White);
         _spriteBatch.DrawString(Game1.mySpriteFont, "Shield: " + _healthSystem.shield, new Vector2(0, posY + 25), Color.White);
         _spriteBatch.DrawString(Game1.mySpriteFont, "Lives: " + _healthSystem.life, new Vector2(125, posY +25), Color.White);
-        _spriteBatch.DrawString(Game1.mySpriteFont, "Coins: ", new Vector2(125, posY + 50), Color.White);
+        _spriteBatch.DrawString(Game1.mySpriteFont, "Coins: " + coins, new Vector2(125, posY + 50), Color.White);
         _spriteBatch.DrawString(Game1.mySpriteFont, "Inventory", new Vector2(0, posY + 50), Color.White);
         _spriteBatch.DrawString(Game1.mySpriteFont, feedback, new Vector2(tilemap_PosX * Game1.tileSize * 2 - 5, ((tilemap_PosY + 5) * Game1.tileSize * 2) - 25), Color.White); 
 
